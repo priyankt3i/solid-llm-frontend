@@ -1,0 +1,24 @@
+{
+  "name": "llm-frontend",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.4.20",
+    "openai": "^4.76.2",
+    "postcss": "^8.4.49",
+    "solid-js": "^1.9.3",
+    "tailwindcss": "^3.4.16",
+    "zod": "^3.24.1"
+  },
+  "devDependencies": {
+    "typescript": "~5.6.2",
+    "vite": "^6.0.1",
+    "vite-plugin-solid": "^2.11.0"
+  }
+}
