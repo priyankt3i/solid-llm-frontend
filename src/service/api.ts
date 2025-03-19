@@ -1,31 +1,31 @@
-import OpenAI from 'openai';
 import { Message, ChatConfig } from '../types';
 import { config } from '../config';
+import { GoogleGenerativeAI } from "@google/generative-ai";
 
-const openai = new OpenAI({
-  baseURL: config.api.baseUrl,
-  apiKey: config.api.apiKey,
-  dangerouslyAllowBrowser: true
-});
+const genAI = new GoogleGenerativeAI(config.api.geminiApiKey);
+const model = genAI.getGenerativeModel({ model: config.defaultModel });
 
 export async function* sendMessage(
   messages: Message[],
   chatConfig: ChatConfig
 ): AsyncGenerator<string> {
   try {
-    const stream = await openai.chat.completions.create({
-      model: chatConfig.model,
-      messages: messages.map(({ role, content }) => ({ role, content })),
-      stream: true,
-      max_tokens: chatConfig.maxTokens,
-      temperature: chatConfig.temperature,
-      top_p: chatConfig.topP
+    const chat = model.startChat({
+      history: messages.map(({ role, content }) => ({
+        role: role === 'assistant' ? 'model' : 'user',
+        parts: [{ text: content }],
+      })),
+      generationConfig: {
+        maxOutputTokens: chatConfig.maxTokens,
+        temperature: chatConfig.temperature,
+        topP: chatConfig.topP,
+      },
     });
 
-    for await (const chunk of stream) {
-      if (chunk.choices[0]?.delta?.content) {
-        yield chunk.choices[0].delta.content;
-      }
+    const result = await chat.sendMessageStream(messages[messages.length - 1].content);
+    for await (const chunk of result.stream) {
+      const chunkText = chunk.text();
+      yield chunkText;
     }
   } catch (error) {
     console.error('Error in sendMessage:', error);

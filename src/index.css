@@ -10,10 +10,25 @@ body {
   margin: 0;
   padding: 0;
   overflow: hidden;
+  background: linear-gradient(to right, #3498db, #00bcd4) !important;
 }
 
 #root {
   height: 100vh;
   width: 100vw;
   overflow: hidden;
+}
+
+.code-block {
+  background-color: #f0f0f0;
+  padding: 10px;
+  border-radius: 5px;
+  overflow-x: auto;
+  font-family: 'Courier New', monospace;
+}
+
+.chat-message-content {
+  font-size: 0.6 rem;
+  max-width: 80%;
+  word-wrap: break-word;
 }

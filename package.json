@@ -9,7 +9,9 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@google/generative-ai": "^0.24.0",
     "autoprefixer": "^10.4.20",
+    "markdown-it": "^14.1.0",
     "openai": "^4.76.2",
     "postcss": "^8.4.49",
     "solid-js": "^1.9.3",
@@ -17,6 +19,7 @@
     "zod": "^3.24.1"
   },
   "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
     "typescript": "~5.6.2",
     "vite": "^6.0.1",
     "vite-plugin-solid": "^2.11.0"

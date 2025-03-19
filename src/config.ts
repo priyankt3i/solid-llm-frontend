@@ -2,23 +2,21 @@
 
 // Import env variables from .env file
 const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
-const API_KEY = import.meta.env.VITE_API_KEY || 'dummy-key';
+const GEMINI_API_KEY = import.meta.env.VITE_GEMINI_API_KEY;
 
-if (!API_BASE_URL) {
-  throw new Error('VITE_API_BASE_URL is required in .env file');
+if (!GEMINI_API_KEY) {
+  throw new Error('VITE_GEMINI_API_KEY is required in .env file');
 }
 
 export const config = {
   api: {
+    useGemini: true,
+    geminiApiKey: GEMINI_API_KEY,
     baseUrl: API_BASE_URL,
-    apiKey: API_KEY,
   },
   models: [
-    'claude-3.5-sonnet',
-    'claude-3.5-haiku',
-    'claude-3-opus',
-    'llama-3.1-405b-instruct',
-    'mistral-large'
+    'gemini-1.0-pro',
+    'gemini-2.0-flash-001',
   ],
-  defaultModel: 'claude-3.5-sonnet'
+  defaultModel: 'gemini-2.0-flash-001'
 } as const;
